@@ -8,4 +8,7 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface PollRepository extends JpaRepository<PollEntity, Long> {
+	
+	List<PollEntity> findAllByInitiator(long initiator);
+
 }
