@@ -39,6 +39,7 @@ public abstract class AbstractIntTest {
                 .stream()
                 .filter(e -> e.getEmail().equals(email))
                 .map(UserEntity::getId)
-                .findFirst().orElseThrow();
+                .findFirst()
+                .orElseThrow(() -> new IllegalStateException("No user found for email: " + email));
     }
 }
