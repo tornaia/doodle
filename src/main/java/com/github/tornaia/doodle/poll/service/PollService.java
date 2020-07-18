@@ -29,6 +29,16 @@ public class PollService {
 
     public List<PollDTO> listPollsByInitiator(long userid) {
         List<PollEntity> polls = pollRepository.findAllByInitiator(userid);
+        return convertToPollDTOList(polls);
+    }
+
+
+    public List<PollDTO> listPollsByTitle(String text) {
+        List<PollEntity> polls = pollRepository.findAllByTitle(text);
+        return convertToPollDTOList(polls);
+    }
+
+    private List<PollDTO> convertToPollDTOList(List<PollEntity> polls) {
         return polls
                 .stream()
                 .map(this::convertToPollDTO)

@@ -8,7 +8,9 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface PollRepository extends JpaRepository<PollEntity, Long> {
-	
-	List<PollEntity> findAllByInitiator(long initiator);
 
+    List<PollEntity> findAllByInitiator(long initiator);
+
+    @Query("SELECT p from POLL p where lower(p.title) like lower(concat('%', :title,'%'))")
+    List<PollEntity> findAllByTitle(@Param("title") String title);
 }
