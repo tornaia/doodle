@@ -39,6 +39,7 @@ public class PollRestController {
 
     @GetMapping("/list/initiated/{timestamp}")
     public ResponseEntity<List<PollDTO>> listPollsByInitiatedGreaterThan(@PathVariable long timestamp) {
-        throw new IllegalStateException("Not implemented yet");
+        List<PollDTO> result = pollService.listPollsByInitiatedGreaterThan(timestamp);
+        return ResponseEntity.ok(result);
     }
 }

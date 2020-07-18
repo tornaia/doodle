@@ -92,4 +92,27 @@ public class DoodleApplicationIntTest extends AbstractIntTest {
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertTrue(response.getBody().isEmpty());
     }
+
+    @Test
+    public void listPollsByInitiatedGreaterThan() {
+        createUser("test7@email.com", "John Doe");
+
+        long beforeInitiated = clockService.now() - 1L;
+        createPoll("test7@email.com", "listPollsByInitiatedGreaterThan");
+
+        ResponseEntity<List<PollDTO>> response = pollRestController.listPollsByInitiatedGreaterThan(beforeInitiated);
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertThat(response.getBody(), Matchers.hasSize(1));
+    }
+
+    @Test
+    public void listPollsByInitiatedNoMatch() {
+        createUser("test8@email.com", "John Doe");
+        createPoll("test8@email.com", "Poll Title");
+
+        long afterInitiated = clockService.now() + 1L;
+        ResponseEntity<List<PollDTO>> response = pollRestController.listPollsByInitiatedGreaterThan(afterInitiated);
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertTrue(response.getBody().isEmpty());
+    }
 }

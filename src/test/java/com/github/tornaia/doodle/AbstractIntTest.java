@@ -1,5 +1,6 @@
 package com.github.tornaia.doodle;
 
+import com.github.tornaia.doodle.core.clock.ClockService;
 import com.github.tornaia.doodle.poll.PollRestController;
 import com.github.tornaia.doodle.poll.service.PollRepository;
 import com.github.tornaia.doodle.poll.service.domain.PollEntity;
@@ -22,6 +23,9 @@ public abstract class AbstractIntTest {
 
     @Autowired
     private PollRepository pollRepository;
+
+    @Autowired
+    protected ClockService clockService;
 
     protected void createUser(String email, String name) {
         userRepository.save(new UserEntity(email, name));

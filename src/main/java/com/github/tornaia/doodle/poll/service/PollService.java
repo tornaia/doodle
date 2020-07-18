@@ -32,9 +32,13 @@ public class PollService {
         return convertToPollDTOList(polls);
     }
 
-
     public List<PollDTO> listPollsByTitle(String text) {
         List<PollEntity> polls = pollRepository.findAllByTitle(text);
+        return convertToPollDTOList(polls);
+    }
+
+    public List<PollDTO> listPollsByInitiatedGreaterThan(long timestamp) {
+        List<PollEntity> polls = pollRepository.findAllByInitiatedGreaterThan(timestamp);
         return convertToPollDTOList(polls);
     }
 
@@ -46,7 +50,7 @@ public class PollService {
     }
 
     private PollDTO convertToPollDTO(PollEntity pollEntity) {
-        UserEntity user = userRepository.findById(pollEntity.getInitiator()).orElseThrow(() -> new IllegalStateException("No user found for poll: " + pollEntity.getId()));
+        UserEntity user = userRepository.findById(pollEntity.getInitiator()).orElseThrow();
         long id = pollEntity.getId();
         List<PollOptionEntity> pollOptions = pollOptionRepository.findAllByPollId(id);
 

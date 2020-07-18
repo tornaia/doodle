@@ -13,4 +13,6 @@ public interface PollRepository extends JpaRepository<PollEntity, Long> {
 
     @Query("SELECT p from POLL p where lower(p.title) like lower(concat('%', :title,'%'))")
     List<PollEntity> findAllByTitle(@Param("title") String title);
+
+    List<PollEntity> findAllByInitiatedGreaterThan(long timestamp);
 }
