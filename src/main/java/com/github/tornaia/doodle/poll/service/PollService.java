@@ -36,7 +36,7 @@ public class PollService {
     }
 
     private PollDTO convertToPollDTO(PollEntity pollEntity) {
-        UserEntity user = userRepository.findById(pollEntity.getInitiator()).orElseThrow();
+        UserEntity user = userRepository.findById(pollEntity.getInitiator()).orElseThrow(() -> new IllegalStateException("No user found for poll: " + pollEntity.getId()));
         long id = pollEntity.getId();
         List<PollOptionEntity> pollOptions = pollOptionRepository.findAllByPollId(id);
 
