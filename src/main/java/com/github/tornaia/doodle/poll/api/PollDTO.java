@@ -1,4 +1,4 @@
-package com.github.tornaia.doodle.poll;
+package com.github.tornaia.doodle.poll.api;
 
 import java.util.List;
 
